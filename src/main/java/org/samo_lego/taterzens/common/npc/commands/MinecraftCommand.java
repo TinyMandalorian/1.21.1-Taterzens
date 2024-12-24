@@ -1,6 +1,7 @@
 package org.samo_lego.taterzens.common.npc.commands;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import org.samo_lego.taterzens.common.npc.TaterzenNPC;
 

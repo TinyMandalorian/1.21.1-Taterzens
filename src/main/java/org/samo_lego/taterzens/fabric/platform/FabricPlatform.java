@@ -7,6 +7,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;

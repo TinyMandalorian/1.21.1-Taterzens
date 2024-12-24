@@ -17,6 +17,7 @@ import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -139,7 +140,13 @@ public class NpcCommand {
             return 1;
         }
 
-        entity.sendSystemMessage(noSelectedTaterzenError());
+        //entity.sendSystemMessage(noSelectedTaterzenError()); // TODO: fix
+        // CrunchMunch: workaround the above being missing
+        for (Player player : entity.level().players()) {
+            if (player.hasPermissions(2)) {
+                player.displayClientMessage(noSelectedTaterzenError(), false);
+            }
+        }
         return 0;
     }
 

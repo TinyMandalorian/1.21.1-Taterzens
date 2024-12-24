@@ -59,8 +59,7 @@ dependencies {
     modImplementation(include('me.lucko:fabric-permissions-api:0.1-SNAPSHOT'))
 
     // Server translations
-    // Commented out for now until we can confirm the 1.21 supported version.  Does not impact general mod function
-    //modImplementation(include("xyz.nucleoid:server-translations-api:${project.translations_api}"))
+    modApi(include("xyz.nucleoid:server-translations-api:${project.translations_api}"))
 
     // SGUI
     modImplementation(include("eu.pb4:sgui:${project.sgui_version}"))
