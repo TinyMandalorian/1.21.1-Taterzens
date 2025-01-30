@@ -87,13 +87,11 @@ public class TypeCommand {
                 // We can do some manipulation based on the detail returned
                 // taterzen.modEntity() is a short all-caps descriptor of the current TYPE.
                 var removeSub = "entity.minecraft.";
-				
+
 		    	var interim = entityx.getType().getDescriptionId();
-		    	
-		    	
+
+
 		    	String stripped = interim.replace(removeSub, "").toUpperCase();
-		    	
-		    	getLogger("Taterzens").info("[Taterzens]: Setting the order to change the type - {}", stripped);
 
 		    	taterzen.modEntity(stripped);
 
@@ -112,7 +110,7 @@ public class TypeCommand {
 
     private static int resetType(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         CommandSourceStack source = context.getSource();
-	    
+
 	/*
 	    Commenting out for now, as polymer provides the interface for setting type.
 	if(!DISGUISELIB_LOADED) {
@@ -126,12 +124,12 @@ public class TypeCommand {
             return -1;
         }
 	*/
-	    
+
         return NpcCommand.selectedTaterzenExecutor(source.getEntityOrException(), taterzen -> {
-            
+
         	// The Reset is to PLAYER
         	taterzen.modEntity("PLAYER");
-            
+
             Taterzens.getInstance().getPlatform().clearDisguise(taterzen);
             source.sendSuccess(() ->
                             successText("taterzens.command.entity_type.reset", taterzen.getName().getString()),
