@@ -190,10 +190,14 @@ public class TaterzenNPC extends PathfinderMob implements CrossbowAttackMob, Ran
         CompoundTag npcTag = new CompoundTag();
         if (npcTag.contains("Entity")) {
         	// Update it to the current settting
+           	getLogger("Taterzens").info("[Taterzens]: We have a valid Entity setting and are putting it in the Tag - Map -  {}, - Tag -", npcData.playerEntity.get("Entity"), npcTag.getString("Entity"));
+    		 //
            	npcTag.putString("Entity", npcData.playerEntity.get("Entity"));
            	// It's actually this we need to update since we have it stored, and the playerEntity hashmap is what we're using
            	npcData.playerEntity.put("Entity", npcTag.getString("Entity"));
         } else { // Initial NPC creation we go to PLAYER
+        	getLogger("Taterzens").info("[Taterzens]: No valid Entity set, so it's PLAYER time.");
+
     		npcTag.putString("Entity", "PLAYER");
             npcData.playerEntity.put("Entity", "PLAYER");
         }
@@ -201,9 +205,9 @@ public class TaterzenNPC extends PathfinderMob implements CrossbowAttackMob, Ran
         // We only want to do this ONCE, and it gets fussy if placed anywhere else.
         // So, we check to see if the list is empty and then fill it if it is
         if (this.npcData.entityList.isEmpty()) {
-
+        	  
             npcData.entityList.put("ALLAY", EntityType.ALLAY);
-        	npcData.entityList.put("AREA_EFFECT_CLOUD", EntityType.AREA_EFFECT_CLOUD);
+        	npcData.entityList.put("AREA_EFFECT_CLOUD", EntityType.AREA_EFFECT_CLOUD); 
         	npcData.entityList.put("ARMOR_STAND", EntityType.ARMOR_STAND);
         	npcData.entityList.put("ARROW", EntityType.ARROW);
         	npcData.entityList.put("AXOLOTL", EntityType.AXOLOTL);
@@ -280,7 +284,7 @@ public class TaterzenNPC extends PathfinderMob implements CrossbowAttackMob, Ran
         	npcData.entityList.put("PIGLIN", EntityType.PIGLIN);
         	npcData.entityList.put("PIGLIN_BRUTE", EntityType.PIGLIN_BRUTE);
         	npcData.entityList.put("PILLAGER", EntityType.PILLAGER);
-        	npcData.entityList.put("PLAYER", EntityType.PLAYER);
+        	npcData.entityList.put("PLAYER", EntityType.PLAYER); 
         	npcData.entityList.put("POLAR_BEAR", EntityType.POLAR_BEAR);
         	npcData.entityList.put("POTION", EntityType.POTION);
         	npcData.entityList.put("PUFFERFISH", EntityType.PUFFERFISH);
@@ -329,13 +333,13 @@ public class TaterzenNPC extends PathfinderMob implements CrossbowAttackMob, Ran
         	npcData.entityList.put("ZOMBIE_VILLAGER", EntityType.ZOMBIE_VILLAGER);
         	npcData.entityList.put("ZOMBIFIED_PIGLIN", EntityType.ZOMBIFIED_PIGLIN);
         }
-
+        
     }
 
     public void modEntity(String entType) {
     	this.npcData.playerEntity.put("Entity", entType);
     }
-
+    
 
     /**
      * Creates default taterzen attributes.
@@ -975,10 +979,13 @@ public class TaterzenNPC extends PathfinderMob implements CrossbowAttackMob, Ran
             this.setAllowSwimming(npcTag.getBoolean("AllowSwimming"));
         // --------------------------------------------------------------
 
-
+        
         // This magic is where we check on loading in whether the NPC has a different TYPE to what is expected
         // Normally, it will default to PLAYER, but we want the TYPE changes to be persistent
         // The logger is pushing details to the minecraft log so you can see it actually parsing things
+
+        getLogger("Taterzens").info("[Taterzens]: Out of interest, the Tag Entity is {}.", npcTag.get("Entity"));
+ 
         if (npcTag.contains("Entity")) {
         	// Update it to the current settting
         	if (npcTag.get("Entity") == null) {
@@ -987,13 +994,15 @@ public class TaterzenNPC extends PathfinderMob implements CrossbowAttackMob, Ran
         		npcTag.putString("Entity", "PLAYER");
                 npcData.playerEntity.put("Entity", "PLAYER");
         	} else {
+            	getLogger("Taterzens").info("[Taterzens]: We have a valid Entity setting and are putting it in the Tag");
+        		//
             	// It's actually this we need to update since we have it stored, and the playerEntity hashmap is what we're using
             	npcData.playerEntity.put("Entity", npcTag.getString("Entity"));
             	// And we need to override the other setting
             	npcTag.putString("Entity", npcTag.getString("Entity"));
         	}
         }
-
+        
         this.setMinCommandInteractionTime(npcTag.getLong("MinCommandInteractionTime"));
     }
 
@@ -1101,6 +1110,9 @@ public class TaterzenNPC extends PathfinderMob implements CrossbowAttackMob, Ran
 
         npcTag.putLong("MinCommandInteractionTime", this.npcData.minCommandInteractionTime);
 
+
+        getLogger("Taterzens").info("[Taterzens]: The Game is paused or saving. We're setting NPC entity to {}", npcData.playerEntity.get("Entity"));
+       
         // We take whatever the npc has been changed to and shove it in the tag.
     	// Only end up in here on pausing or saving to quit
     	if (npcData.playerEntity.get("Entity") != null) {
@@ -1629,7 +1641,7 @@ public class TaterzenNPC extends PathfinderMob implements CrossbowAttackMob, Ran
         double planeDistance = Mth.sqrt((float) (deltaX * deltaX + deltaZ * deltaZ));
 
         // TODO: Fix this projectile related code to meet the 1.21 implementation
-
+        
         // Vector3f launchVelocity = this.getProjectileShotVector(this, new Vec3(deltaX, y + planeDistance * 0.2D, deltaZ), multishotSpray);
 
         // projectile.shoot(launchVelocity.x(), launchVelocity.y(), launchVelocity.z(), 1.6F, 0);
@@ -2083,7 +2095,7 @@ public class TaterzenNPC extends PathfinderMob implements CrossbowAttackMob, Ran
             if (this == npc && config.glowSelectedNpc) {
 
                 // TODO: Fix this particular line.  There's issues with what's being returned
-
+                
                 //data.removeIf(value -> value.id() == Entity.DATA_SHARED_FLAGS_ID.getId());
 
                 // Modify Taterzen to have fake glowing effect for the player
